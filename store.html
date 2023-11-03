@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store</title>
+</head>
+<body>
+    <form onsubmit="createItem(event)" method="post">
+        <label for="new-term">Term:</label>
+        <input type="text" id="new-term" name="new-term"><br><br>
+        <label for="definition">Definition:</label>
+        <input type="text" id="definition" name="definition"><br><br>
+        <input type="submit" value="Submit">
+      </form>
+      <div id="result">
+        No response yet!
+    </div>
+      <a href="./search.html"><button>Search</button></a>
+      <script src="app.js" defer></script>
+</body>
+</html>
