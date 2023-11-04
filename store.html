@@ -9,14 +9,22 @@
     <form onsubmit="createItem(event)" method="post">
         <label for="new-term">Term:</label>
         <input type="text" id="new-term" name="new-term"><br><br>
+
+        <label for="term-language">Term Language:</label>
+        <select id="term-language" name="term-language"></select><br><br>
+
         <label for="definition">Definition:</label>
         <input type="text" id="definition" name="definition"><br><br>
+
+        <label for="definition-language">Definition Language:</label>
+        <select id="definition-language" name="definition-language"></select><br><br>
+
         <input type="submit" value="Submit">
-      </form>
-      <div id="result">
+    </form>
+    <div id="result">
         No response yet!
     </div>
-      <a href="./search.html"><button>Search</button></a>
-      <script src="app.js" defer></script>
+    <a href="./search.html"><button>Search</button></a>
+    <script src="app.js" defer></script>
 </body>
 </html>

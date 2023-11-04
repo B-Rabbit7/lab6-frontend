@@ -1,62 +1,134 @@
-const create_route = 'https://lab6-backend.onrender.com/create'
-const search_route = 'https://lab6-backend.onrender.com/search/?term='
-const alert_create = "Both term and definition must be valid strings (letters only)."
-const alert_get = "Term must be valid strings (letters only)."
+const create_route = "https://lab6-backend.onrender.com/create";
+const search_route = "https://lab6-backend.onrender.com/search/?term=";
+const languages_route = "https://lab6-backend.onrender.com/languages";
 
-function createItem(event) {
-    event.preventDefault(); // stops the page from refreshing when a form is submitted.
-    let regex = /^[a-zA-Z]+$/;
-    let definitionRegex = /^[a-zA-Z\s]+$/; //make sure we only get alphabetic letters
-    let term = document.getElementById("new-term").value; //get the value inputted into term
-    let definition = document.getElementById("definition").value; //get value inputted into definition
+const local_languages_route = "http://localhost:8888/languages";
+const local_create_route = "http://localhost:8888/definition";
+const local_search_route = "http://localhost:8888/search/?term=";
 
-    // alert if empty space, or weird term entered
-    if (!regex.test(term) || !definitionRegex.test(definition)) {
-        alert(alert_create);
-        return;
-    } 
-    // data object
-    let data = {
-      "term": term,
-      "definition": definition
-    }
-    //strigify
-    let jsonData = JSON.stringify(data)
-    // prep to send a POST request.
-    const xhttp = new XMLHttpRequest();
-    xhttp.open("POST",create_route , true); // initialize request - true meaning asynchnorous
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
-    xhttp.send(jsonData);
-    // run when response was sent and server is responding and request changes
-    xhttp.onreadystatechange = function () {
-      if (this.readyState == 4) { // state 4 means request is complete and response is available
-          if (this.status == 201) { // 201 is success
-              document.getElementById("result").innerHTML = JSON.parse(this.responseText).result;
-          } else {
-              document.getElementById("result").innerHTML = JSON.parse(this.responseText).error;
-          }
+const alert_create =
+  "Both term and definition must be valid strings (letters only).";
+const alert_get = "Term must be valid strings (letters only).";
+
+function populateLanguageDropdowns() {
+  const termLanguageDropdown = document.getElementById("term-language");
+  const definitionLanguageDropdown = document.getElementById(
+    "definition-language"
+  );
+
+  // Make a GET request to fetch available languages
+  const xhttp = new XMLHttpRequest();
+  xhttp.open("GET", local_languages_route, true);
+
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4) {
+      if (this.status == 200) {
+        const languages = JSON.parse(this.responseText);
+
+        // Populate the term language dropdown
+        languages.forEach((language) => {
+          const option = document.createElement("option");
+          option.value = language;
+          option.textContent = language;
+          termLanguageDropdown.appendChild(option);
+        });
+
+        // Populate the definition language dropdown
+        languages.forEach((language) => {
+          const option = document.createElement("option");
+          option.value = language;
+          option.textContent = language;
+          definitionLanguageDropdown.appendChild(option);
+        });
+      } else {
+        console.error(
+          "Error fetching languages:",
+          JSON.parse(this.responseText).error
+        );
       }
-  }
+    }
+  };
+
+  xhttp.send();
 }
+let regex = /^[\p{L}\s]+$/u;
+let languageRegex = /^[\p{L}]+$/u;
+function createItem(event) {
+  event.preventDefault();
+  event.preventDefault();
+  let term = document.getElementById("new-term").value;
+  let definition = document.getElementById("definition").value;
+  let termLanguage = document.getElementById("term-language").value;
+  let definitionLanguage = document.getElementById("definition-language").value;
+
+  if (!regex.test(term) || !regex.test(definition)) {
+    alert(alert_create);
+    return;
+  }
+//   if (
+//     !languageRegex.test(termLanguage) ||
+//     !languageRegex.test(definitionLanguage)
+//   ) {
+//     alert(
+//       "Invalid language characters for term language or definition language."
+//     );
+//     return;
+//   }
+
+  let data = {
+    term: term,
+    term_language: termLanguage,
+    definition: definition,
+    definition_language: definitionLanguage,
+  };
+
+  let jsonData = JSON.stringify(data);
+
+  const xhttp = new XMLHttpRequest();
+  xhttp.open("POST", local_create_route, true);
+  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.send(jsonData);
+
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4) {
+      if (this.status == 201) {
+        document.getElementById("result").innerHTML = JSON.parse(
+          this.responseText
+        ).result;
+      } else {
+        document.getElementById("result").innerHTML = JSON.parse(
+          this.responseText
+        ).error;
+      }
+    }
+  };
+}
+
+populateLanguageDropdowns();
+
 // same thing but for GET
 function getItem(event) {
-    event.preventDefault();
-    const regex = /^[a-zA-Z]+$/;
-    const term = document.getElementById("search-term").value;
-    if (!regex.test(term)) {
-      alert(alert_get);
-      return;
+  event.preventDefault();
+  const regex = /^[a-zA-Z]+$/;
+  const term = document.getElementById("search-term").value;
+  if (!regex.test(term)) {
+    alert(alert_get);
+    return;
   }
-    const xhttp = new XMLHttpRequest();
-    xhttp.open("GET", `${search_route}`+`${term}`, true);
-    xhttp.send();
-    xhttp.onreadystatechange = function () {
-      if (this.readyState == 4) {
-          if (this.status == 200) {
-              document.getElementById("result").innerHTML = JSON.parse(this.responseText).result;
-          } else {
-              document.getElementById("result").innerHTML = JSON.parse(this.responseText).error;
-          }
+  const xhttp = new XMLHttpRequest();
+  xhttp.open("GET", `${local_search_route}` + `${term}`, true);
+  xhttp.send();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4) {
+      if (this.status == 200) {
+        document.getElementById("result").innerHTML = JSON.parse(
+          this.responseText
+        ).result;
+      } else {
+        document.getElementById("result").innerHTML = JSON.parse(
+          this.responseText
+        ).error;
       }
-  }
+    }
+  };
 }
