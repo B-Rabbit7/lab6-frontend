@@ -1,30 +1,50 @@
-const local_search_route = "http://localhost:8888/definition/?word=";
+
+const local_update_route = "http://localhost:8888/definition/"
 const alert_create =
-  "Both term and definition must be valid strings (letters only).";
+    "Both term and definition must be valid strings (letters only).";
 const alert_get = "Term must be valid strings (letters only).";
-// same thing but for GET
+const get_method = "GET";
+const delete_method = "DELETE";
+const regex = /^[\p{L}\s]+$/u;
+
+
 function getItem(event) {
     event.preventDefault();
-    const regex = /^[a-zA-Z]+$/;
     const term = document.getElementById("search-term").value;
     if (!regex.test(term)) {
-      alert(alert_get);
-      return;
+        alert(alert_get);
+        return;
     }
     const xhttp = new XMLHttpRequest();
-    xhttp.open("GET", `${local_search_route}` + `${term}`, true);
+    xhttp.open(get_method, `${local_update_route}` + `${term}`, true);
     xhttp.send();
     xhttp.onreadystatechange = function () {
-      if (this.readyState == 4) {
-        if (this.status == 200) {
-          document.getElementById("result").innerHTML = JSON.parse(
-            this.responseText
-          ).result;
-        } else {
-          document.getElementById("result").innerHTML = JSON.parse(
-            this.responseText
-          ).error;
+        if (this.readyState == 4) {
+            if (this.status == 200) {
+                document.getElementById("result").innerHTML = JSON.parse(
+                    this.responseText
+                ).result;
+            } else {
+                document.getElementById("result").innerHTML = JSON.parse(
+                    this.responseText
+                ).error;
+            }
         }
-      }
     };
-  }
+}
+
+function deleteItem() {
+    const term = document.getElementById("search-term").value;
+    const xhttp = new XMLHttpRequest();
+    xhttp.open(delete_method, `${local_update_route}` + `${term}`, true);
+    xhttp.send();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4) {
+            if (this.status == 200) {
+                document.getElementById("result").innerHTML = `Term ${term} deleted successfully.`;
+            } else {
+                document.getElementById("result").innerHTML = `Error deleting term ${term}.`;
+            }
+        }
+    };
+}

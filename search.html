@@ -4,17 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search</title>
-    <script src="search.js"></script>
 </head>
 <body>
     <form onsubmit="getItem(event)" method="post">
         <label for="term">term:</label>
         <input type="text" id="search-term" name="term"><br><br>
         <input type="submit" value="Submit">
+        <button onclick="deleteItem()">Delete</button>
       </form>
     <div id="result">
         No response yet!
     </div>
     <a href="./store.html"><button>Store</button></a>
+    <script src="search.js"></script>
+
 </body>
 </html>
