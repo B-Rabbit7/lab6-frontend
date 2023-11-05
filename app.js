@@ -1,21 +1,23 @@
-const create_route = "https://lab6-backend.onrender.com/create";
-const search_route = "https://lab6-backend.onrender.com/search/?term=";
-const languages_route = "https://lab6-backend.onrender.com/languages";
 
-const local_languages_route = "http://localhost:8888/languages";
-const local_create_route = "http://localhost:8888/definition";
-const local_search_route = "http://localhost:8888/definition/?word=";
-const local_update_route = "http://localhost:8888/definition/"
-const word_exists_confirmation = "The word already exists. Do you want to update the definition?";
-const alert_create =
-  "Both term and definition must be valid strings (letters only).";
-const alert_get = "Term must be valid strings (letters only).";
-const GET = "GET";
-const POST = "POST";
-const PATCH = "PATCH";
-const fetch_error = "Error fetching languages:";
-let regex = /^[\p{L}\s]+$/u;
-let languageRegex = /^[\p{L}]+$/u;
+const create_route = storeStrings.apiRoutes.create;
+const search_route = storeStrings.apiRoutes.search;
+const languages_route = storeStrings.apiRoutes.languages;
+
+const local_languages_route = storeStrings.apiRoutes.localLanguages;
+const local_create_route = storeStrings.apiRoutes.localCreate;
+const local_search_route = storeStrings.apiRoutes.localSearch;
+const local_update_route = storeStrings.apiRoutes.localUpdate;
+
+const word_exists_confirmation = storeStrings.prompts.wordExistsConfirmation;
+const alert_create = storeStrings.prompts.createAlert;
+const alert_get = storeStrings.prompts.getAlert;
+const GET = storeStrings.requestMethods.GET;
+const POST = storeStrings.requestMethods.POST;
+const PATCH = storeStrings.requestMethods.PATCH;
+const fetch_error = storeStrings.messages.fetchError;
+
+let regex = storeStrings.regexPatterns.word;
+let languageRegex = storeStrings.regexPatterns.language;
 
 function populateLanguageDropdowns() {
   const termLanguageDropdown = document.getElementById("term-language");

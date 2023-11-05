@@ -1,11 +1,10 @@
 
-const local_update_route = "http://localhost:8888/definition/"
-const alert_create =
-    "Both term and definition must be valid strings (letters only).";
-const alert_get = "Term must be valid strings (letters only).";
-const get_method = "GET";
-const delete_method = "DELETE";
-const regex = /^[\p{L}\s]+$/u;
+const local_update_route = searchStrings.apiRoutes.localUpdate;
+const alert_create = searchStrings.messages.alertInvalidChar;
+const alert_get = searchStrings.messages.alertGet;
+const get_method = searchStrings.methods.GET;
+const delete_method = searchStrings.methods.DELETE;
+const regex = searchStrings.regexPatterns.regex;
 
 
 function getItem(event) {
@@ -41,9 +40,9 @@ function deleteItem() {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4) {
             if (this.status == 200) {
-                document.getElementById("result").innerHTML = `Term ${term} deleted successfully.`;
+                document.getElementById("result").innerHTML = searchStrings.messages.deleteSuccess(term);
             } else {
-                document.getElementById("result").innerHTML = `Error deleting term ${term}.`;
+                document.getElementById("result").innerHTML = searchStrings.messages.deleteError(term);
             }
         }
     };
