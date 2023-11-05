@@ -6,7 +6,7 @@ const searchStrings = {
       alertInvalidChar: "Both term and definition must be valid strings (letters only).",
       alertGet: "Term must be valid strings (letters only).",
       deleteSuccess: (term)=> `Term ${term} deleted successfully.`,
-      deleteError: (term)=> `Error deleting term ${term}.`,
+      deleteError: (term)=> `Error deleting term ${term}. Term does not exist in database`,
     },
     methods: {
       GET: "GET",
