@@ -116,6 +116,7 @@ function createItem(event) {
   let definition = document.getElementById("definition").value;
   let termLanguage = document.getElementById("term-language").value;
   let definitionLanguage = document.getElementById("definition-language").value;
+  let requestSection = document.getElementById("request");
   if (!regex.test(term) || !regex.test(definition)) {
     alert(alert_create);
     return;
