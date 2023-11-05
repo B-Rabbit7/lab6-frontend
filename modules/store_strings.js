@@ -1,11 +1,10 @@
 const storeStrings = {
   apiRoutes: {
-    create: "https://lab6-backend.onrender.com/create",
-    search: "https://lab6-backend.onrender.com/search/?term=",
+    create: "https://lab6-backend.onrender.com/definition",
     languages: "https://lab6-backend.onrender.com/languages",
+    update: "https://lab6-backend.onrender.com/definition/",
     localLanguages: "http://localhost:8888/languages",
     localCreate: "http://localhost:8888/definition",
-    localSearch: "http://localhost:8888/definition/?word=",
     localUpdate: "http://localhost:8888/definition/",
   },
   prompts: {

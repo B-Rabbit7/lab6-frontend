@@ -1,11 +1,11 @@
 
 const create_route = storeStrings.apiRoutes.create;
-const search_route = storeStrings.apiRoutes.search;
 const languages_route = storeStrings.apiRoutes.languages;
+const update_route = storeStrings.apiRoutes.update;
 
+// for testing purposes
 const local_languages_route = storeStrings.apiRoutes.localLanguages;
 const local_create_route = storeStrings.apiRoutes.localCreate;
-const local_search_route = storeStrings.apiRoutes.localSearch;
 const local_update_route = storeStrings.apiRoutes.localUpdate;
 
 const word_exists_confirmation = storeStrings.prompts.wordExistsConfirmation;
@@ -25,7 +25,7 @@ function populateLanguageDropdowns() {
     "definition-language"
   );
   const xhttp = new XMLHttpRequest();
-  xhttp.open(GET, local_languages_route, true);
+  xhttp.open(GET, languages_route, true);
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4) {
       if (this.status == 200) {
@@ -64,7 +64,7 @@ function createNewEntry(term, termLanguage, definition, definitionLanguage) {
   let jsonData = JSON.stringify(data);
 
   const xhttp = new XMLHttpRequest();
-  xhttp.open(POST, local_create_route, true);
+  xhttp.open(POST, create_route, true);
   xhttp.setRequestHeader("Content-type", "application/json");
   xhttp.send(jsonData);
 
@@ -91,7 +91,7 @@ function updateDefinition(term, definition, term_language, definition_language) 
   };
   let jsonData = JSON.stringify(data);
   const xhttp = new XMLHttpRequest();
-  xhttp.open(PATCH, `${local_update_route}` + `${term}`, true);
+  xhttp.open(PATCH, `${update_route}` + `${term}`, true);
   xhttp.setRequestHeader("Content-type", "application/json");
   xhttp.send(jsonData);
 
@@ -121,7 +121,7 @@ function createItem(event) {
     return;
   }
   const xhttp = new XMLHttpRequest();
-  xhttp.open(GET, `${local_update_route}` + `${term}`, true);
+  xhttp.open(GET, `${update_route}` + `${term}`, true);
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4) {
       if (this.status == 200) {

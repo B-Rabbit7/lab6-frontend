@@ -1,5 +1,8 @@
 
+const update_route = searchStrings.apiRoutes.update;
+
 const local_update_route = searchStrings.apiRoutes.localUpdate;
+
 const alert_create = searchStrings.messages.alertInvalidChar;
 const alert_get = searchStrings.messages.alertGet;
 const get_method = searchStrings.methods.GET;
@@ -15,7 +18,7 @@ function getItem(event) {
         return;
     }
     const xhttp = new XMLHttpRequest();
-    xhttp.open(get_method, `${local_update_route}` + `${term}`, true);
+    xhttp.open(get_method, `${update_route}` + `${term}`, true);
     xhttp.send();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4) {
@@ -35,7 +38,7 @@ function getItem(event) {
 function deleteItem() {
     const term = document.getElementById("search-term").value;
     const xhttp = new XMLHttpRequest();
-    xhttp.open(delete_method, `${local_update_route}` + `${term}`, true);
+    xhttp.open(delete_method, `${update_route}` + `${term}`, true);
     xhttp.send();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4) {

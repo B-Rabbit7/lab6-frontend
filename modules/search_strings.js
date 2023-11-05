@@ -1,6 +1,7 @@
 const searchStrings = {
     apiRoutes:{
       localUpdate: "http://localhost:8888/definition/",
+      update: "https://lab6-backend.onrender.com/definition/",
     },
     messages:{
       alertInvalidChar: "Both term and definition must be valid strings (letters only).",
