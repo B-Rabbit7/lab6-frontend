@@ -26,6 +26,7 @@ function getItem(event) {
                 document.getElementById("result").innerHTML = JSON.parse(
                     this.responseText
                 ).result;
+                
             } else {
                 document.getElementById("result").innerHTML = JSON.parse(
                     this.responseText
@@ -43,9 +44,13 @@ function deleteItem() {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4) {
             if (this.status == 200) {
-                document.getElementById("result").innerHTML = searchStrings.messages.deleteSuccess(term);
+                document.getElementById("result").innerHTML = JSON.parse(
+                    this.responseText
+                ).result;
             } else {
-                document.getElementById("result").innerHTML = searchStrings.messages.deleteError(term);
+                document.getElementById("result").innerHTML = JSON.parse(
+                    this.responseText
+                ).error;
             }
         }
     };

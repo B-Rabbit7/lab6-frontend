@@ -74,6 +74,7 @@ function createNewEntry(term, termLanguage, definition, definitionLanguage) {
         document.getElementById("result").innerHTML = JSON.parse(
           this.responseText
         ).result;
+        document.getElementById("result").append = JSON.parse(this.responseText).statusCode;
       } else {
         document.getElementById("result").innerHTML = JSON.parse(
           this.responseText
